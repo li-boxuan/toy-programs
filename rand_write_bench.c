@@ -42,13 +42,13 @@ int main(int argc, char* argv[])
     while (cnt < TOT_LEN)
     {
         offset = rand() % TOT_LEN;
+    	double stime = millitime();
         ret = lseek(fd, offset, SEEK_SET);
         if (ret < 0)
         {
             perror("lseek");
             abort();
         }
-    	double stime = millitime();
         ret = write(fd, buf, len);
         if (ret != len)
         {
