@@ -26,11 +26,12 @@ int main(int argc, char* argv[])
     }
     char buf[BUF_SIZE] = "";
     int len = BUF_LEN;
-    for (int i = 0; i < len; i++)
+    int i;
+    for (i = 0; i < len; i++)
         buf[i] = '+';
     double stime = millitime();
     long tot = 0;
-    while (1)
+    while (tot < 1024 * 1024 * 1024)
     {
         ret = write(fd, buf, len);
         if (ret != len)
@@ -45,13 +46,11 @@ int main(int argc, char* argv[])
             perror("fsync");
             abort();
         }
-        if (tot % (1024 * 1024) == 0)
-        {
-            double time_cost = millitime() - stime;
-            double tput = tot / 1024 / 1024 / time_cost; 
-            printf("\rThroughput (MB/s): %.6f", tput);
-            fflush(stdout);
-        }
     }
+    double time_cost = millitime() - stime;
+    double tput = tot / 1024 / 1024 / time_cost; 
+    printf("\rThroughput (MB/s): %.6f", tput);
+    fflush(stdout);
+
     return 0;
 }
