@@ -7,7 +7,7 @@
 
 #define BUF_SIZE 5000
 #define BUF_LEN 4096
-#define TOT_LEN 1024 * 1024 * 100
+#define TOT_LEN 1024 * 1024 * 1024
 
 static inline double millitime(){
     struct timeval now;
@@ -18,7 +18,7 @@ static inline double millitime(){
 int main(int argc, char* argv[])
 {
     int ret;
-    int fd = open(argv[1], O_WRONLY | O_CREAT);
+    int fd = open(argv[1], O_RDWR | O_CREAT);
     if (fd == -1)
     {
         printf("please input a file to write to, e.g. './tmp.txt'\n");
